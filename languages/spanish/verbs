@@ -1,0 +1,98 @@
+#Regular Present
+
+tenseIs("present") and endsIn("ar") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ar", "o"), replaceEnd("ar", "amos") },
+  { replaceEnd("ar", "as"), replaceEnd("ar", "an") },
+  { replaceEnd("ar", "a"), replaceEnd("ar", "an") }
+}
+
+tenseIs("present") and endsIn("er") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("er", "o"), replaceEnd("er", "emos") },
+  { replaceEnd("er", "es"), replaceEnd("er", "en") },
+  { replaceEnd("er", "e"), replaceEnd("er", "en") }
+}
+
+tenseIs("present") and endsIn("ir") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ir", "o"), replaceEnd("ir", "imos") },
+  { replaceEnd("ir", "es"), replaceEnd("ir", "an") },
+  { replaceEnd("ir "e"), replaceEnd("ir", "en") }
+}
+
+#Irregular Imperfect
+
+tenseIs("imperfect") and verbIs{"ir", "ser", "ver"} and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  {
+    { replaceAll("iba"), replaceAll("íbamos") },
+    { replaceAll("ibas"), replaceAll("iban") },
+    { replaceAll("iba"), replaceAll("iban") }
+  },
+  {
+    { replaceAll("era"), replaceAll("eramos") },
+    { replaceAll("eras"), replaceAll("eran") },
+    { replaceAll("era"), replaceAll("eran") }
+  },
+  {
+    { replaceAll("veía"), replaceAll("veíamos") },
+    { replaceAll("veías"), replaceAll("veían") },
+    { replaceAll("veía"), replaceAll("veían") }
+  }
+}
+
+#Regular Imperfect
+
+tenseIs("imperfect") and endsIn("ar") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ar", "aba"), replaceEnd("ar", "ábamos") },
+  { replaceEnd("ar", "abas"), replaceEnd("ar", "aban") },
+  { replaceEnd("ar", "aba"), replaceEnd("ar", "aban") }
+}
+
+tenseIs("imperfect") and endsIn("er") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("er", "ía"), replaceEnd("er", "íamos") },
+  { replaceEnd("er", "ías"), replaceEnd("er", "ían") },
+  { replaceEnd("er", "ía"), replaceEnd("er", "ían") }
+}
+
+tenseIs("imperfect") and endsIn("ir") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ir", "ía"), replaceEnd("ir", "íamos") },
+  { replaceEnd("ir", "ías"), replaceEnd("ir", "ían") },
+  { replaceEnd("ir "ía"), replaceEnd("ir", "ían") }
+}
+
+#Regular Preterite
+
+tenseIs("preterite") and endsIn("ar") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ar", "é"), replaceEnd("ar", "amos") },
+  { replaceEnd("ar", "aste"), replaceEnd("ar", "aron") },
+  { replaceEnd("ar", "ó"), replaceEnd("ar", "aron") }
+}
+
+tenseIs("preterite") and endsIn("er") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("er", "í"), replaceEnd("er", "emos") },
+  { replaceEnd("er", "iste"), replaceEnd("er", "ieron") },
+  { replaceEnd("er", "ió"), replaceEnd("er", "ieron") }
+}
+
+tenseIs("preterite") and endsIn("ir") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("ir", "í"), replaceEnd("ir", "imos") },
+  { replaceEnd("ir", "iste"), replaceEnd("ir", "ieron") },
+  { replaceEnd("ir "ió"), replaceEnd("ir", "ieron") }
+}
+
+#Regular Future
+
+tenseIs("future") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("", "é"), replaceEnd("", "emos") },
+  { replaceEnd("", "ás"), replaceEnd("", "án") },
+  { replaceEnd("", "á"), replaceEnd("", "án") }
+}

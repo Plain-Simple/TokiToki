@@ -1,0 +1,15 @@
+
+
+caseIs("subject") and genderIs{"male", "female"} and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+   {
+      { return("yo"), return("nosotros") },
+      { return("tú"), return ("ustedes") },
+      { return("él"), return ("ellos") }
+   },
+   {
+      { return("yo"), return("nosotras") },
+      { return("tú"), return ("ustedes") },
+      { return("ella"), return ("ellas") }
+   }
+}

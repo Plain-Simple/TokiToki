@@ -1,0 +1,98 @@
+########IRREGULAR####################
+
+#Imperfect
+
+verbIs("ver") AND tenseIs("Tense.IMPERFECT"), conjugate("veer")
+verbIs("ser") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ser" "éramos")
+verbIs("ser") AND tenseIs("Tense.IMPERFECT"), conjugate("erar")
+verbIs("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ir" "íbamos")
+verbIs("ir") AND tenseIs("Tense.IMPERFECT"), conjugate("ibar")
+
+########REGULAR######################
+
+#Present
+
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "o")
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "as")
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "a")
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ar" "amos")
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ar" "an")
+endsIn("ar") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ar" "an")
+
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("er" "o")
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("er" "es")
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("er" "e")
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("er" "emos")
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("er" "en")
+endsIn("er") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("er" "en")
+
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "o")
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "es")
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "e")
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ir" "imos")
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ir" "en")
+endsIn("ir") AND tenseIs("Tense.PRESENT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ir" "en")
+
+#Preterite
+
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "é")
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "aste")
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "ó")
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ar" "amos")
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ar" "aron")
+endsIn("ar") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ar" "aron")
+
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("er" "í")
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("er" "iste")
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("er" "ió")
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("er" "imos")
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("er" "ieron")
+endsIn("er") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("er" "ieron")
+
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "í")
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "iste")
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "ió")
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ir" "imos")
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ir" "ieron")
+endsIn("ir") AND tenseIs("Tense.PRETERITE") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ir" "ieron")
+
+#Imperfect
+
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "aba")
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "abas")
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ar" "aba")
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ar" "ábamos")
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ar" "aban")
+endsIn("ar") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ar" "aban")
+
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("er" "ía")
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("er" "ías")
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("er" "ía")
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("er" "íamos")
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("er" "ían")
+endsIn("er") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("er" "ían")
+
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "ía")
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "ías")
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("ir" "ía")
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("ir" "íamos")
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("ir" "ían")
+endsIn("ir") AND tenseIs("Tense.IMPERFECT") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("ir" "ían")
+
+#Future
+
+tenseIs("Tense.FUTURE") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("" "é")
+tenseIs("Tense.FUTURE") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("" "ás")
+tenseIs("Tense.FUTURE") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("" "á")
+tenseIs("Tense.FUTURE") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("" "emos")
+tenseIs("Tense.FUTURE") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("" "án")
+tenseIs("Tense.FUTURE") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("" "án")
+
+#Conditional
+
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.FIRST") AND numberIs("Number.SINGULAR"), replaceEnd("" "ía")
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.SECOND") AND numberIs("Number.SINGULAR"), replaceEnd("" "ías")
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.THIRD") AND numberIs("Number.SINGULAR"), replaceEnd("" "ía")
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.FIRST") AND numberIs("Number.PLURAL"), replaceEnd("" "íamos")
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.SECOND") AND numberIs("Number.PLURAL"), replaceEnd("" "ían")
+tenseIs("Tense.CONDITIONAL") AND personIs("Person.THIRD") AND numberIs("Number.PLURAL"), replaceEnd("" "ían")
