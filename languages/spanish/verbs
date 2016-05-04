@@ -99,7 +99,7 @@ tenseIs("future") and personIs{"first", "second", "third"} and numberIs{"singula
 
 #Regular Conditional
 
-tenseIs("future") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+tenseIs("conditional") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
 {
   { replaceEnd("", "ía"), replaceEnd("", "íamos") },
   { replaceEnd("", "ías"), replaceEnd("", "ían") },
