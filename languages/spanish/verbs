@@ -96,3 +96,12 @@ tenseIs("future") and personIs{"first", "second", "third"} and numberIs{"singula
   { replaceEnd("", "ás"), replaceEnd("", "án") },
   { replaceEnd("", "á"), replaceEnd("", "án") }
 }
+
+#Regular Conditional
+
+tenseIs("future") and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  { replaceEnd("", "ía"), replaceEnd("", "íamos") },
+  { replaceEnd("", "ías"), replaceEnd("", "ían") },
+  { replaceEnd("", "ía"), replaceEnd("", "ían") }
+}
