@@ -14,6 +14,11 @@ public class Conjugator extends PartOfSpeechManipulator {
         }
     }
 
+    /**
+     * Conjugate the given verb
+     * @param verb the verb to conjugate
+     * @return conjugated verb as a String
+     */
     public String conjugate(Verb verb) {
         return performAppropriateRule(verb);
     }
