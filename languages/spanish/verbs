@@ -105,3 +105,29 @@ tenseIs("conditional") and personIs{"first", "second", "third"} and numberIs{"si
   { replaceEnd("", "ías"), replaceEnd("", "ían") },
   { replaceEnd("", "ía"), replaceEnd("", "ían") }
 }
+
+#Irregular Conditional
+
+tenseIs("conditional") and verbIs{"tener", "poner", "salir", "venir"} and personIs{"first", "second", "third"} and numberIs{"singular", "plural"}
+{
+  {
+      { replaceEnd("er", "dría"), replaceEnd("er", "dríamos") },
+      { replaceEnd("er", "drías"), replaceEnd("er", "drían") },
+      { replaceEnd("er", "dría"), replaceEnd("er", "drían") }
+  },
+  {
+     { replaceEnd("er", "dría"), replaceEnd("er", "dríamos") },
+     { replaceEnd("er", "drías"), replaceEnd("er", "drían") },
+     { replaceEnd("er", "dría"), replaceEnd("er", "drían") }
+  },
+  {
+      { replaceEnd("ir", "dría"), replaceEnd("er", "dríamos") },
+      { replaceEnd("ir", "drías"), replaceEnd("er", "drían") },
+      { replaceEnd("ir", "dría"), replaceEnd("er", "drían") }
+  },
+  {
+      { replaceEnd("ir", "dría"), replaceEnd("er", "dríamos") },
+      { replaceEnd("ir", "drías"), replaceEnd("er", "drían") },
+      { replaceEnd("ir", "dría"), replaceEnd("er", "drían") }
+  }
+}
