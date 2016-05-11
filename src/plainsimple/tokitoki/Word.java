@@ -3,14 +3,18 @@ package plainsimple.tokitoki;
 import java.time.LocalDateTime;
 
 public class Word {
+    /**
+     * Constructs new Word from word and definition
+     * @param target_language_word the word in the target language (the one being learned)
+     * @param base_language_word the word in the base language (the one already known)
+     */
     public Word(String target_language_word, String base_language_word) {
         this.target_language_word = target_language_word;
         this.base_language_word = base_language_word;
-        easiness_factor = UserSettings.getDefault_easiness_factor();
     }
     public String target_language_word, base_language_word;
     public LocalDateTime last_practiced;
-    public double practice_interval, easiness_factor;
+    public double practice_interval, easiness_factor = UserSettings.getDefault_easiness_factor();
     public int initial_reps = 0;
 
     public void markReviewed(int grade) {

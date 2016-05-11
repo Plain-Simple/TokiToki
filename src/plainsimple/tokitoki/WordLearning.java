@@ -13,7 +13,7 @@ public class WordLearning {
     public static List<Wordlist> all_known_words = new ArrayList<>();
 
     /**
-     * Imports serialized version of all_known_words
+     * Imports serialized (saved on disk) version of all_known_words
      */
     public static void importPreviousWords() {
         try {
@@ -24,6 +24,10 @@ public class WordLearning {
             System.out.println("Error: unable to import known words.");
         }
     }
+
+    /**
+     * Serializes and saves current version of all_known_words to disk
+     */
     public static void saveProgress() {
         try {
             ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("all_words"));
@@ -39,10 +43,11 @@ public class WordLearning {
      */
     public void reviewWords() {
         ArrayList<Integer[]> to_review = getReviewWords();
-        ArrayList<Integer[]> incorrect = new ArrayList<Integer[]>();
+        ArrayList<Integer[]> incorrect = new ArrayList<>();
 
         Collections.shuffle(to_review);
         for (Integer[] coordinates : to_review) {
+            // Review each word and add incorrect words to "incorrect" array
             LocalDateTime question_asked = LocalDateTime.now();
             String user_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizUser();
             int grade = all_known_words.get(coordinates[0]).words.get(coordinates[1]).gradeResponse(user_answer, question_asked);
@@ -51,7 +56,11 @@ public class WordLearning {
                 incorrect.add(coordinates);
             }
         }
+        Collections.shuffle(incorrect);
         for (Integer[] coordinates : incorrect) {
+            /* pretty much same thing as previously, except words get added to end of array if wrong
+               this is just to review words - easiness factor and interval and all are not affected
+             */
             String user_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizUser();
             String correct_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).target_language_word;
             if (!user_answer.equals(user_answer)) {
@@ -62,8 +71,8 @@ public class WordLearning {
 
 
     /**
-     *
-     * @param filename
+     * Adds words from a wordlist to be learned
+     * @param filename file where the wordlist is stored
      */
     public void addWordsFromFile(String filename) {
         all_known_words.add(new Wordlist(filename));
