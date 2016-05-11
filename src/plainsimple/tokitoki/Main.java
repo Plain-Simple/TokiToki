@@ -7,10 +7,6 @@ public class Main {
     static Pronoun_Getter pron = new Pronoun_Getter();
     public static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        Integer first = 1;
-        Integer second = first;
-        first = 2;
-        System.out.print(second);
-        System.out.print(new Verb("sonreir", "conditional", "second", "plural", "null").conjugate());
+        System.out.print(new Verb("tener", "conditional", "second", "plural", "null").conjugate());
     }
 }
