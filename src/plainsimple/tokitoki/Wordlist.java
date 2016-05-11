@@ -1,11 +1,12 @@
 package plainsimple.tokitoki;
 
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wordlist {
+public class Wordlist implements Serializable {
     public List<Word> words = new ArrayList<>();
 
     public String getTitle() {
