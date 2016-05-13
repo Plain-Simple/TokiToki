@@ -1,8 +1,10 @@
 package plainsimple.tokitoki;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Word {
+public class Word implements Serializable{
     /**
      * Constructs new Word from word and definition
      * @param target_language_word the word in the target language (the one being learned)
@@ -13,18 +15,42 @@ public class Word {
         this.base_language_word = base_language_word;
     }
     public String target_language_word, base_language_word;
-    public LocalDateTime last_practiced;
-    public double practice_interval, easiness_factor = UserSettings.getDefault_easiness_factor();
-    public int initial_reps = 0;
-
+    LocalDateTime last_practiced;
+    double practice_interval, easiness_factor = UserSettings.getDefault_easiness_factor();
+    int reps_left = UserSettings.default_initial_repetitions;
+    boolean fully_learned = false;
+    public boolean repsLeft() {
+        return reps_left > 0;
+    }
+    public boolean isFullyLearned() {
+        return fully_learned;
+    }
     public void markReviewed(int grade) {
         updateEasinessFactor(grade);
         updateInterval();
         updateLastPracticed();
     }
-    public String quizUser() {
+
+    private String quizUser() {
         System.out.print("Type the Spanish word for \"" + base_language_word + "\": ");
         return Main.scanner.nextLine();
+    }
+
+    public boolean quizAndGrade() {
+        LocalDateTime question_asked = LocalDateTime.now();
+        String user_answer = quizUser();
+        int grade = gradeResponse(user_answer, question_asked);
+        markReviewed(grade);
+        return grade >= 4;
+    }
+    public boolean quizNoGrade() {
+        return quizUser().equals(target_language_word);
+    }
+    public void introduce() {
+        System.out.println("The Spanish word for \"" + base_language_word + "\" is \"" + target_language_word + "\". Type \"" + target_language_word + "\": ");
+        while (!Main.scanner.nextLine().equals(target_language_word)) {
+            System.out.println("Sorry, try again. Type \"" + target_language_word + "\": ");
+        }
     }
     void updateEasinessFactor(int grade) {
         /* the following is taken from the SuperMemo2 algorithm */

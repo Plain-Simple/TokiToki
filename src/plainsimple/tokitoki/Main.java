@@ -7,6 +7,6 @@ public class Main {
     static Pronoun_Getter pron = new Pronoun_Getter();
     public static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        System.out.print(new Verb("tener", "conditional", "second", "plural", "null").conjugate());
+        new Word("tener", "to have").introduce();
     }
 }

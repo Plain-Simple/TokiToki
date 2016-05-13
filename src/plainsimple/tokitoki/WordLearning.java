@@ -48,28 +48,17 @@ public class WordLearning {
         Collections.shuffle(to_review);
         for (Integer[] coordinates : to_review) {
             // Review each word and add incorrect words to "incorrect" array
-            LocalDateTime question_asked = LocalDateTime.now();
-            String user_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizUser();
-            int grade = all_known_words.get(coordinates[0]).words.get(coordinates[1]).gradeResponse(user_answer, question_asked);
-            all_known_words.get(coordinates[0]).words.get(coordinates[1]).markReviewed(grade);
-            if (grade < 4) {
+            if (!all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizAndGrade()) {
                 incorrect.add(coordinates);
             }
         }
         Collections.shuffle(incorrect);
         for (Integer[] coordinates : incorrect) {
-            /* pretty much same thing as previously, except words get added to end of array if wrong
-               this is just to review words - easiness factor and interval and all are not affected
-             */
-            String user_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizUser();
-            String correct_answer = all_known_words.get(coordinates[0]).words.get(coordinates[1]).target_language_word;
-            if (!user_answer.equals(user_answer)) {
+            if (!all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizNoGrade()) {
                 incorrect.add(coordinates);
             }
         }
     }
-
-
     /**
      * Adds words from a wordlist to be learned
      * @param filename file where the wordlist is stored
@@ -81,7 +70,7 @@ public class WordLearning {
         ArrayList<Integer[]> to_review = new ArrayList<>();
         for (int i = 0; i < all_known_words.size(); i++) {
             for (int j = 0; j < all_known_words.get(i).words.size(); j++) {
-                if (all_known_words.get(i).words.get(j).timeToReview()) {
+                if (all_known_words.get(i).words.get(j).timeToReview() && all_known_words.get(i).words.get(j).isFullyLearned()) {
                     to_review.add(new Integer[]{i, j});
                 }
             }
