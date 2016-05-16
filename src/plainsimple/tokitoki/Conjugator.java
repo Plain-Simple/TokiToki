@@ -23,6 +23,24 @@ public class Conjugator extends PartOfSpeechManipulator {
     }
 
     @Override
+    public String doRulePart(String infinitive, String instruction_name, String[] args) {
+        switch (instruction_name) {
+            case "return":
+            case "replaceAll":
+                return stripQuotes(args[0]);
+            case "replaceEnd":
+                return stripFromEnd(infinitive, stripQuotes(args[0])) + stripQuotes(args[1]);
+            case "conjugate":
+                return conjugate(new Verb(stripQuotes(args[0]), stripQuotes(args[1]), stripQuotes(args[2]), stripQuotes(args[3]), stripQuotes(args[4])));
+            case "replaceStart":
+                return infinitive.substring(stripQuotes(args[0]).length());
+        }
+        System.out.println("Error: unable to execute instruction: " + instruction_name);
+        System.exit(1);
+        return null;
+    }
+
+    @Override
     public boolean testRulePart(String[] attributes, String conditional) {
         /**** VERB ATTRIBUTES (in order): infinitive, tense, person, number, gender */
         String infinitive = attributes[0], tense = attributes[1], person = attributes[2], number = attributes[3], gender = attributes[4];
@@ -52,22 +70,5 @@ public class Conjugator extends PartOfSpeechManipulator {
                 System.exit(1);
                 return false;
         }
-    }
-    @Override
-    public String doRulePart(String infinitive, String instruction_name, String[] args) {
-        switch (instruction_name) {
-            case "return":
-            case "replaceAll":
-                return stripQuotes(args[0]);
-            case "replaceEnd":
-                return stripFromEnd(infinitive, stripQuotes(args[0])) + stripQuotes(args[1]);
-            case "conjugate":
-                return conjugate(new Verb(stripQuotes(args[0]), stripQuotes(args[1]), stripQuotes(args[2]), stripQuotes(args[3]), stripQuotes(args[4])));
-            case "replaceStart":
-                return infinitive.substring(stripQuotes(args[0]).length());
-        }
-        System.out.println("Error: unable to execute instruction: " + instruction_name);
-        System.exit(1);
-        return null;
     }
 }

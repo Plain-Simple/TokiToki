@@ -4,24 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Wordgroup {
-    Random random = new Random();
-    private ArrayList<Coordinate> to_repeat = new ArrayList<>();
-    private Coordinate[] coordinates;
-    private Coordinate last_random;
-    private int introduction_index;
     public Wordgroup(Coordinate[] coordinates) {
         this.coordinates = coordinates;
     }
-    private boolean introduceNext() {
-        if (introduction_index < coordinates.length) {
-            coordinates[introduction_index].introduce();
-            to_repeat.add(coordinates[introduction_index]);
-            introduction_index++;
-            return true;
-        } else {
-            return false;
-        }
-    }
+    Random random = new Random();
+    private final Coordinate[] coordinates;
+    private int introduction_index;
+    private Coordinate last_random;
+    private ArrayList<Coordinate> to_repeat = new ArrayList<>();
+
     public void learn() {
         introduceNext();
         introduceNext();
@@ -32,7 +23,19 @@ public class Wordgroup {
             repeatNewRandom();
             repeatNewRandom();
         }
-        while (repeatNewRandom());
+        while (repeatNewRandom()) {
+        }
+    }
+
+    private boolean introduceNext() {
+        if (introduction_index < coordinates.length) {
+            coordinates[introduction_index].introduce();
+            to_repeat.add(coordinates[introduction_index]);
+            introduction_index++;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void repeat(int index) {
@@ -44,15 +47,7 @@ public class Wordgroup {
             to_repeat.remove(index);
         }
     }
-    private boolean repeatRandom() {
-        if (to_repeat.size() <= 0) {
-            return false;
-        } else {
-            int random_num = random.nextInt(to_repeat.size());
-            repeat(random_num);
-            return true;
-        }
-    }
+
     private boolean repeatNewRandom() {
         if (to_repeat.size() <= 0) {
             return false;
@@ -75,5 +70,15 @@ public class Wordgroup {
             }
         }
         return true;
+    }
+
+    private boolean repeatRandom() {
+        if (to_repeat.size() <= 0) {
+            return false;
+        } else {
+            int random_num = random.nextInt(to_repeat.size());
+            repeat(random_num);
+            return true;
+        }
     }
 }

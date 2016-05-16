@@ -1,10 +1,6 @@
 package plainsimple.tokitoki;
 
 public class LevenshteinDistance {
-    private static int minimum(int a, int b, int c) {
-        return Math.min(Math.min(a, b), c);
-    }
-
     public static int computeLevenshteinDistance(CharSequence lhs, CharSequence rhs) {
         int[][] distance = new int[lhs.length() + 1][rhs.length() + 1];
 
@@ -21,5 +17,9 @@ public class LevenshteinDistance {
                         distance[i - 1][j - 1] + ((lhs.charAt(i - 1) == rhs.charAt(j - 1)) ? 0 : 1));
 
         return distance[lhs.length()][rhs.length()];
+    }
+
+    private static int minimum(int a, int b, int c) {
+        return Math.min(Math.min(a, b), c);
     }
 }

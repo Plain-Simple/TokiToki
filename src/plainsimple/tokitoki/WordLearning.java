@@ -9,7 +9,17 @@ import java.util.Collections;
 import java.util.List;
 
 public final class WordLearning {
-    public static List<Wordlist> all_known_words = new ArrayList<>();
+    /**
+     * Adds words from a wordlist to be learned
+     * @param filename file where the wordlist is stored
+     */
+    public static void addWordsFromFile(String filename) {
+        all_known_words.add(new Wordlist(filename));
+    }
+
+    public static void clearScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
 
     /**
      * Imports serialized (saved on disk) version of all_known_words
@@ -24,18 +34,22 @@ public final class WordLearning {
         }
     }
 
-    /**
-     * Serializes and saves current version of all_known_words to disk
-     */
-    public static void saveProgress() {
-        try {
-            ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("all_words"));
-            writer.writeObject(all_known_words);
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("unable to save progress");
+    public static void learnNewWords() {
+        ArrayList<Coordinate> unlearned = getUnlearnedWords();
+        for (int i = 0; i < unlearned.size(); i += UserSettings.getWordgroup_size()) {
+            List<Coordinate> sublist;
+            sublist = i + (2 * UserSettings.getWordgroup_size()) <= unlearned.size() ? unlearned.subList(i, i + UserSettings.getWordgroup_size()) : unlearned.subList(i, unlearned.size());
+            Coordinate[] coordinates = new Coordinate[sublist.size()];
+            coordinates = sublist.toArray(coordinates);
+            Wordgroup current = new Wordgroup(coordinates);
+            if (UserSettings.isDebug()) {
+                System.out.print("Wordgroup of size " + coordinates.length + " created ");
+                System.out.println("using words " + i + " to " + (i + coordinates.length) + " out of " + unlearned.size());
+            }
+            current.learn();
         }
     }
+
     /**
      * Reviews words that are up for review
      */
@@ -57,31 +71,31 @@ public final class WordLearning {
             }
         }
     }
-    public static void learnNewWords() {
-        ArrayList<Coordinate> unlearned = getUnlearnedWords();
-        for (int i = 0; i < unlearned.size(); i += UserSettings.getWordgroup_size()) {
-            List<Coordinate> sublist;
-            if (i + (2 * UserSettings.getWordgroup_size()) <= unlearned.size()) {
-                sublist = unlearned.subList(i, i + UserSettings.getWordgroup_size());
-            } else {
-                sublist = unlearned.subList(i, unlearned.size());
-            }
-            Coordinate[] coordinates = new Coordinate[sublist.size()];
-            coordinates = sublist.toArray(coordinates);
-            Wordgroup current = new Wordgroup(coordinates);
-            if (UserSettings.isDebug()) {
-                System.out.print("Wordgroup of size " + coordinates.length + " created ");
-                System.out.println("using words " + i + " to " + (i + coordinates.length) + " out of " + unlearned.size());
-            }
-            current.learn();
+
+    /**
+     * Serializes and saves current version of all_known_words to disk
+     */
+    public static void saveProgress() {
+        try {
+            ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("all_words"));
+            writer.writeObject(all_known_words);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("unable to save progress");
         }
     }
-    /**
-     * Adds words from a wordlist to be learned
-     * @param filename file where the wordlist is stored
-     */
-    public static void addWordsFromFile(String filename) {
-        all_known_words.add(new Wordlist(filename));
+
+    private static ArrayList<Coordinate> getReviewWords() {
+        ArrayList<Coordinate> to_review = new ArrayList<>();
+        for (int i = 0; i < all_known_words.size(); i++) {
+            for (int j = 0; j < all_known_words.get(i).words.size(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                if (coordinate.isFullyLearned() && coordinate.timeToReview()) {
+                    to_review.add(coordinate);
+                }
+            }
+        }
+        return to_review;
     }
 
     private static ArrayList<Coordinate> getUnlearnedWords() {
@@ -96,19 +110,5 @@ public final class WordLearning {
         }
         return unlearned;
     }
-    private static ArrayList<Coordinate> getReviewWords() {
-        ArrayList<Coordinate> to_review = new ArrayList<>();
-        for (int i = 0; i < all_known_words.size(); i++) {
-            for (int j = 0; j < all_known_words.get(i).words.size(); j++) {
-                Coordinate coordinate = new Coordinate(i, j);
-                if (coordinate.isFullyLearned() && coordinate.timeToReview()) {
-                    to_review.add(coordinate);
-                }
-            }
-        }
-        return to_review;
-    }
-    public static void clearScreen() {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    }
+    public static List<Wordlist> all_known_words = new ArrayList<>();
 }

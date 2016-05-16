@@ -7,17 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wordlist implements Serializable {
-    public List<Word> words = new ArrayList<>();
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    String title;
     public Wordlist(String file_name) {
         List<String> word_lines;
         try {
@@ -33,4 +22,14 @@ public class Wordlist implements Serializable {
             System.exit(1);
         }
     }
+    String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public List<Word> words = new ArrayList<>();
 }

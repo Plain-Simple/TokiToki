@@ -16,6 +16,19 @@ public class Pronoun_Getter extends PartOfSpeechManipulator {
             System.exit(1);
         }
     }
+
+    @Override
+    public String doRulePart(String infinitive, String instruction_name, String[] args) {
+        switch (instruction_name) {
+            case "return":
+            case "replaceAll":
+                return stripQuotes(args[0]);
+        }
+        System.out.println("Error: unable to execute instruction: " + instruction_name);
+        System.exit(1);
+        return null;
+    }
+
     public String getPronoun(Pronoun pronoun) {
         return performAppropriateRule(pronoun);
     }
@@ -40,17 +53,6 @@ public class Pronoun_Getter extends PartOfSpeechManipulator {
                 System.exit(1);
                 return false;
         }
-    }
-    @Override
-    public String doRulePart(String infinitive, String instruction_name, String[] args) {
-        switch (instruction_name) {
-            case "return":
-            case "replaceAll":
-                return stripQuotes(args[0]);
-        }
-        System.out.println("Error: unable to execute instruction: " + instruction_name);
-        System.exit(1);
-        return null;
     }
 
 }
