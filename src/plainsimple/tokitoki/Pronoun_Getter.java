@@ -10,7 +10,7 @@ public class Pronoun_Getter extends PartOfSpeechManipulator {
 
     public Pronoun_Getter() {
         try {
-            rules = Files.readAllLines(Paths.get("languages/" + UserSettings.getCurrent_language() + "/pronouns"));
+            rules = Files.readAllLines(Paths.get("languages/" + UserSettings.getTarget_language() + "/pronouns"));
         } catch (Exception e) {
             System.out.println("error: couldn't find pronoun rules");
             System.exit(1);

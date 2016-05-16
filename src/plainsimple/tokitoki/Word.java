@@ -1,7 +1,6 @@
 package plainsimple.tokitoki;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Word implements Serializable{
@@ -14,14 +13,12 @@ public class Word implements Serializable{
         this.target_language_word = target_language_word;
         this.base_language_word = base_language_word;
     }
-    public String target_language_word, base_language_word;
-    LocalDateTime last_practiced;
-    double practice_interval, easiness_factor = UserSettings.getDefault_easiness_factor();
-    int reps_left = UserSettings.default_initial_repetitions;
-    boolean fully_learned = false;
-    public boolean repsLeft() {
-        return reps_left > 0;
-    }
+    private String target_language_word, base_language_word;
+    private LocalDateTime last_practiced;
+    private double practice_interval, easiness_factor = UserSettings.getInitial_easiness_factor();
+    private int reps_left = UserSettings.getInitial_repetitions();
+    private boolean fully_learned;
+
     public boolean isFullyLearned() {
         return fully_learned;
     }
@@ -30,8 +27,15 @@ public class Word implements Serializable{
         updateInterval();
         updateLastPracticed();
     }
-
+    public void incrementReps() {
+        reps_left -= 1;
+        if (reps_left <= 0) {
+            fully_learned = true;
+            last_practiced = LocalDateTime.now();
+        }
+    }
     private String quizUser() {
+        WordLearning.clearScreen();
         System.out.print("Type the Spanish word for \"" + base_language_word + "\": ");
         return Main.scanner.nextLine();
     }
@@ -47,27 +51,28 @@ public class Word implements Serializable{
         return quizUser().equals(target_language_word);
     }
     public void introduce() {
-        System.out.println("The Spanish word for \"" + base_language_word + "\" is \"" + target_language_word + "\". Type \"" + target_language_word + "\": ");
+        WordLearning.clearScreen();
+        System.out.print("The Spanish word for \"" + base_language_word + "\" is \"" + target_language_word + "\". Type \"" + target_language_word + "\": ");
         while (!Main.scanner.nextLine().equals(target_language_word)) {
-            System.out.println("Sorry, try again. Type \"" + target_language_word + "\": ");
+            System.out.print("Sorry, try again. Type \"" + target_language_word + "\": ");
         }
     }
-    void updateEasinessFactor(int grade) {
+    private void updateEasinessFactor(int grade) {
         /* the following is taken from the SuperMemo2 algorithm */
         easiness_factor = easiness_factor-0.8+0.28*grade-0.02*grade*grade;
         easiness_factor = (easiness_factor < 1.3 ? 1.3 : easiness_factor);
     }
-    void updateInterval() {
+    private void updateInterval() {
         practice_interval *= easiness_factor;
     }
     public boolean timeToReview() {
         return LocalDateTime.now().isAfter(last_practiced.plusDays((long)practice_interval));
     }
-    void updateLastPracticed() {
+    private void updateLastPracticed() {
         last_practiced = LocalDateTime.now();
     }
 
-    public int gradeResponse(String user_answer, LocalDateTime question_asked) {
+    private int gradeResponse(String user_answer, LocalDateTime question_asked) {
         LocalDateTime question_answered = LocalDateTime.now();
         if (target_language_word.equals(user_answer)) {
             if (question_answered.minusSeconds(target_language_word.length()).compareTo(question_asked) <= 0) {
@@ -91,7 +96,7 @@ public class Word implements Serializable{
     }
 
     /* method taken from https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Java */
-    public static int levenshteinDistance (CharSequence lhs, CharSequence rhs) {
+    private static int levenshteinDistance (CharSequence lhs, CharSequence rhs) {
         int len0 = lhs.length() + 1;
         int len1 = rhs.length() + 1;
 

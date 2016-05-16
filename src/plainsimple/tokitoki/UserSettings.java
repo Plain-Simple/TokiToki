@@ -1,39 +1,39 @@
 package plainsimple.tokitoki;
 
 public class UserSettings {
-    static double default_easiness_factor = 2.5;
-    static int default_initial_repetitions = 6;
-    static String current_language = "spanish";
+    private static double initial_easiness_factor = 2.5;
+    private static int initial_repetitions = 6;
+    private static int wordgroup_size = 8;
+    private static String target_language = "spanish";
+    private static String base_language = "english";
 
-    public static int getWords_at_once() {
-        return words_at_once;
+    public static boolean isDebug() {return true;}
+    public static int getWordgroup_size() {
+        return wordgroup_size;
     }
 
-    public static void setWords_at_once(int words_at_once) {
-        UserSettings.words_at_once = words_at_once;
+    public static void setWordgroup_size(int wordgroup_size) {
+        UserSettings.wordgroup_size = wordgroup_size;
     }
 
-    static int words_at_once;
 
-    public static double getDefault_easiness_factor() {
-        return default_easiness_factor;
-    }
-
-    public static void setDefault_easiness_factor(double default_easiness_factor) {
-        UserSettings.default_easiness_factor = default_easiness_factor;
+    public static double getInitial_easiness_factor() {
+        return initial_easiness_factor;
     }
 
-    public static int getDefault_initial_repetitions() {
-        return default_initial_repetitions;
+    public static void setInitial_easiness_factor(double initial_easiness_factor) {
+        UserSettings.initial_easiness_factor = initial_easiness_factor;
     }
-
-    public static void setDefault_initial_repetitions(int default_initial_repetitions) {
-        UserSettings.default_initial_repetitions = default_initial_repetitions;
+    public static int getInitial_repetitions() {
+        return initial_repetitions;
     }
-    public static void setCurrent_language(String current_language) {
-        UserSettings.current_language = current_language;
+    public static void setInitial_repetitions(int initial_repetitions) {
+        UserSettings.initial_repetitions = initial_repetitions;
     }
-    public static String getCurrent_language() {
-        return current_language;
+    public static void setTarget_language(String target_language) {
+        UserSettings.target_language = target_language;
+    }
+    public static String getTarget_language() {
+        return target_language;
     }
 }

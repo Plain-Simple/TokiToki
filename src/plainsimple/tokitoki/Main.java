@@ -7,6 +7,7 @@ public class Main {
     static Pronoun_Getter pron = new Pronoun_Getter();
     public static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        new Word("tener", "to have").introduce();
+        WordLearning.addWordsFromFile("test1");
+        WordLearning.learnNewWords();
     }
 }

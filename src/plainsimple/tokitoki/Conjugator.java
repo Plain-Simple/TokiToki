@@ -2,12 +2,11 @@ package plainsimple.tokitoki;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class Conjugator extends PartOfSpeechManipulator {
     public Conjugator() {
         try {
-            rules = Files.readAllLines(Paths.get("languages/" + UserSettings.getCurrent_language() + "/verbs"));
+            rules = Files.readAllLines(Paths.get("languages/" + UserSettings.getTarget_language() + "/verbs"));
         } catch (Exception e) {
             System.out.println("error: couldn't find verb rules");
             System.exit(1);

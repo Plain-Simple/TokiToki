@@ -4,12 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WordLearning {
+public final class WordLearning {
     public static List<Wordlist> all_known_words = new ArrayList<>();
 
     /**
@@ -37,45 +36,79 @@ public class WordLearning {
             System.out.println("unable to save progress");
         }
     }
-
     /**
      * Reviews words that are up for review
      */
-    public void reviewWords() {
-        ArrayList<Integer[]> to_review = getReviewWords();
-        ArrayList<Integer[]> incorrect = new ArrayList<>();
+    public static void reviewWords() {
+        ArrayList<Coordinate> to_review = getReviewWords();
+        ArrayList<Coordinate> incorrect = new ArrayList<>();
 
         Collections.shuffle(to_review);
-        for (Integer[] coordinates : to_review) {
+        for (Coordinate coordinate : to_review) {
             // Review each word and add incorrect words to "incorrect" array
-            if (!all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizAndGrade()) {
-                incorrect.add(coordinates);
+            if (!coordinate.quizAndGrade()) {
+                incorrect.add(coordinate);
             }
         }
         Collections.shuffle(incorrect);
-        for (Integer[] coordinates : incorrect) {
-            if (!all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizNoGrade()) {
-                incorrect.add(coordinates);
+        for (Coordinate coordinate : incorrect) {
+            if (!coordinate.quizNoGrade()) {
+                incorrect.add(coordinate);
             }
+        }
+    }
+    public static void learnNewWords() {
+        ArrayList<Coordinate> unlearned = getUnlearnedWords();
+        for (int i = 0; i < unlearned.size(); i += UserSettings.getWordgroup_size()) {
+            List<Coordinate> sublist;
+            if (i + (2 * UserSettings.getWordgroup_size()) <= unlearned.size()) {
+                sublist = unlearned.subList(i, i + UserSettings.getWordgroup_size());
+            } else {
+                sublist = unlearned.subList(i, unlearned.size());
+            }
+            Coordinate[] coordinates = new Coordinate[sublist.size()];
+            coordinates = sublist.toArray(coordinates);
+            Wordgroup current = new Wordgroup(coordinates);
+            if (UserSettings.isDebug()) {
+                System.out.print("Wordgroup of size " + coordinates.length + " created ");
+                System.out.println("using words " + i + " to " + (i + coordinates.length) + " out of " + unlearned.size());
+            }
+            current.learn();
         }
     }
     /**
      * Adds words from a wordlist to be learned
      * @param filename file where the wordlist is stored
      */
-    public void addWordsFromFile(String filename) {
+    public static void addWordsFromFile(String filename) {
         all_known_words.add(new Wordlist(filename));
     }
-    public ArrayList<Integer[]> getReviewWords() {
-        ArrayList<Integer[]> to_review = new ArrayList<>();
+
+    private static ArrayList<Coordinate> getUnlearnedWords() {
+        ArrayList<Coordinate> unlearned = new ArrayList<>();
         for (int i = 0; i < all_known_words.size(); i++) {
             for (int j = 0; j < all_known_words.get(i).words.size(); j++) {
-                if (all_known_words.get(i).words.get(j).timeToReview() && all_known_words.get(i).words.get(j).isFullyLearned()) {
-                    to_review.add(new Integer[]{i, j});
+                Coordinate coordinate = new Coordinate(i, j);
+                if (!coordinate.isFullyLearned()) {
+                    unlearned.add(coordinate);
+                }
+            }
+        }
+        return unlearned;
+    }
+    private static ArrayList<Coordinate> getReviewWords() {
+        ArrayList<Coordinate> to_review = new ArrayList<>();
+        for (int i = 0; i < all_known_words.size(); i++) {
+            for (int j = 0; j < all_known_words.get(i).words.size(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                if (coordinate.isFullyLearned() && coordinate.timeToReview()) {
+                    to_review.add(coordinate);
                 }
             }
         }
         return to_review;
     }
-
+    public static void clearScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
 }
