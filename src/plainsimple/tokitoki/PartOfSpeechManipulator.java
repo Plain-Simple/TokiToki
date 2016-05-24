@@ -45,20 +45,12 @@ public abstract class PartOfSpeechManipulator {
         }
         return rule_parts.toArray(new String[rule_parts.size()]);
     }
-
-    /**
-     * Modifies the base part of speech according to the instructions given
-     * @param base_part_of_speech - the original, unmodified part of speech
-     * @param instructions        - the set of instructions for how to modify the original
-     * @param index_sequence      - if the conditional had multi-rules, index_sequence contains the indeces of the instructions in the multirule to follow
-     * @return the modified part of speech
-     */
-    public String doRule(String base_part_of_speech, String instructions, List<Integer> index_sequence) {
-        String overall_result = base_part_of_speech;
+    public String doRule(PartOfSpeech partOfSpeech, String instructions, List<Integer> index_sequence) {
+        String overall_result = partOfSpeech.base_form;
         if (isMultiFunction(instructions) && getArgs(instructions).length >= 2) {
             instructions = getArgs(instructions)[index_sequence.get(0)];
             index_sequence = index_sequence.subList(1, index_sequence.size());
-            return doRule(base_part_of_speech, instructions, index_sequence);
+            return doRule(partOfSpeech, instructions, index_sequence);
         }
         for (String single_condition : breakRuleUp(instructions)) {
             overall_result = doRulePart(overall_result, getFunctionName(single_condition), getArgs(single_condition));
@@ -144,17 +136,11 @@ public abstract class PartOfSpeechManipulator {
         return instructions;
     }
 
-    /**
-     * Finds the indeces of the conditions within the multirule that match the conditional
-     * @param attributes - the attributes on which to test the conditional
-     * @param multirule  - the multirule to be tested
-     * @return an array of ints each containing the index of the multirule that was true
-     */
-    public int getMultiRuleIndex(String[] attributes, String multirule) {
+    public int getMultiRuleIndex(PartOfSpeech partOfSpeech, String multirule) {
         String function_name = getFunctionName(multirule);
         String[] args = getArgs(multirule);
         for (int i = 0; i < args.length; i++) {
-            if (testRulePart(attributes, function_name + '(' + args[i] + ')')) {
+            if (testRulePart(partOfSpeech, function_name + '(' + args[i] + ')')) {
                 return i;
             }
         }
@@ -201,14 +187,14 @@ public abstract class PartOfSpeechManipulator {
         return -1;
     }
 
-    public String performAppropriateRule(PartOfSpeech partofspeech) {
+    public String performAppropriateRule(PartOfSpeech partOfSpeech) {
         /* get the very first conditional */
         int line_num = jumpToNextConditional(-1);
         /* while there are still conditionals left */
         while (line_num != -1) {
-            List<Integer> index_sequence = testRule(partofspeech.getAttributes(), rules.get(line_num));
+            List<Integer> index_sequence = testRule(partOfSpeech, rules.get(line_num));
             if (index_sequence != null) {
-                return doRule(partofspeech.getAttributes()[0], getInstructions(line_num), index_sequence);
+                return doRule(partOfSpeech, getInstructions(line_num), index_sequence);
             }
             line_num = jumpToNextConditional(line_num);
         }
@@ -240,34 +226,51 @@ public abstract class PartOfSpeechManipulator {
         return str.length() >= 2 && str.charAt(0) == '"' && str.charAt(str.length() - 1) == '"' ? str.substring(1, str.length() - 1) : str;
     }
 
-    /**
-     * Tests an entire line to see if the instructions below should be followed
-     * @param attributes  - the attributes of the part of speech (such as gender, tense, etc)
-     * @param conditional - the conditional that the attributes are tested on
-     * @return a list of integers with the indeces of the multirule that were true
-     */
-    List<Integer> testRule(String[] attributes, String conditional) {
+    List<Integer> testRule(PartOfSpeech partOfSpeech, String conditional) {
         ArrayList<Integer> index_sequence = new ArrayList<>();
         for (String single_condition : breakRuleUp(conditional)) {
             if (isMultiFunction(single_condition)) {
-                int multiruleindex = getMultiRuleIndex(attributes, single_condition);
+                int multiruleindex = getMultiRuleIndex(partOfSpeech, single_condition);
                 if (multiruleindex == -1) {
                     return null;
                 } else {
                     index_sequence.add(multiruleindex);
                 }
-            } else if (!testRulePart(attributes, single_condition)) {
+            } else if (!testRulePart(partOfSpeech, single_condition)) {
                 return null;
             }
         }
         return index_sequence;
     }
-
-    /**
-     * Tests a singular rule (or rule part) as a conditional
-     * @param attributes  - the attributes of the part of speech (such as tense, gender, etc)
-     * @param conditional - the conditional to test the attributes by
-     * @return whether or not the attributes match the conditional requirements
-     */
-    public abstract boolean testRulePart(String[] attributes, String conditional);
+    public boolean testRulePart(PartOfSpeech partOfSpeech, String conditional) {
+        /* all of this requires only one arg */
+        String argument = stripQuotes(getArgs(conditional)[0]);
+        switch (getFunctionName(conditional)) {
+            case "startsIn":
+            case "startsWith":
+                int start_length = argument.length();
+                return argument.equals(partOfSpeech.base_form.substring(0, start_length));
+            case "endsIn":
+            case "endsWith":
+                return stripFromEnd(partOfSpeech.base_form, argument) != null;
+            case "infinitiveIs":
+            case "is":
+            case "verbIs":
+                return partOfSpeech.base_form.equals(argument);
+            case "tenseIs":
+                return partOfSpeech.tense.equals(argument);
+            case "personIs":
+                return partOfSpeech.person.equals(argument);
+            case "genderIs":
+                return partOfSpeech.gender.equals(argument);
+            case "numberIs":
+                return partOfSpeech.number.equals(argument);
+            case "caseIS":
+                return partOfSpeech.grammatical_case.equals(argument);
+            default:
+                System.out.println("Error: unknown function in testRulePart: " + getFunctionName(conditional));
+                System.exit(1);
+                return false;
+        }
+    }
 }

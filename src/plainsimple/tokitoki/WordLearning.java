@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class WordLearning {
+public class WordLearning {
     /**
      * Adds words from a wordlist to be learned
      * @param filename file where the wordlist is stored
@@ -110,5 +110,5 @@ public final class WordLearning {
         }
         return unlearned;
     }
-    public static List<Wordlist> all_known_words = new ArrayList<>();
+    static List<Wordlist> all_known_words = new ArrayList<>();
 }

@@ -24,6 +24,8 @@ public class Word implements Serializable {
         if (reps_left <= 0) {
             fully_learned = true;
             last_practiced = LocalDateTime.now();
+            easiness_factor = UserSettings.getInitial_easiness_factor();
+            practice_interval = UserSettings.getInitial_interval();
         }
     }
 
@@ -43,6 +45,7 @@ public class Word implements Serializable {
         updateEasinessFactor(grade);
         updateInterval();
         updateLastPracticed();
+        WordLearning.saveProgress();
     }
 
     public boolean quizAndGrade() {

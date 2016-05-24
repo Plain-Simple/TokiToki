@@ -6,6 +6,7 @@ public class UserSettings {
     private static int initial_repetitions = 6;
     private static String target_language = "spanish";
     private static int wordgroup_size = 8;
+    private static double initial_interval = 0.5;
 
     public static double getInitial_easiness_factor() {
         return initial_easiness_factor;
@@ -21,6 +22,10 @@ public class UserSettings {
 
     public static void setInitial_repetitions(int initial_repetitions) {
         UserSettings.initial_repetitions = initial_repetitions;
+    }
+
+    public static double getInitial_interval() {
+        return initial_interval;
     }
 
     public static String getTarget_language() {

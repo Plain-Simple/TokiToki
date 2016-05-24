@@ -2,9 +2,7 @@ package plainsimple.tokitoki;
 
 import java.util.Scanner;
 
-/**
- * Created by stevenkarson on 5/20/16.
- */
+
 public class Menu {
 
     public Menu() {
@@ -24,20 +22,20 @@ public class Menu {
         }
     }
 
-    public void continueLearning() {
+    private static void continueLearning() {
 
     }
 
-    public void runReview() {
+    private static void runReview() {
+        WordLearning.reviewWords();
+    }
+
+    private static void viewLearningTrack() {
 
     }
 
-    public void viewLearningTrack() {
-
-    }
-
-    public void exit() {
+    private static void exit() {
         System.out.println("Thank you for using TokiToki!");
-        System.exit(1);
+        System.exit(0);
     }
 }

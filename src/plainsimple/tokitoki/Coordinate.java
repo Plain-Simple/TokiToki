@@ -1,6 +1,6 @@
 package plainsimple.tokitoki;
 
-public class Coordinate {
+public class Coordinate extends WordLearning {
     public Coordinate(int first, int second) {
         coordinates[0] = first;
         coordinates[1] = second;
@@ -13,22 +13,22 @@ public class Coordinate {
     }
 
     public void introduce() {
-        WordLearning.all_known_words.get(coordinates[0]).words.get(coordinates[1]).introduce();
+        all_known_words.get(coordinates[0]).words.get(coordinates[1]).introduce();
     }
 
     public boolean isFullyLearned() {
-        return WordLearning.all_known_words.get(coordinates[0]).words.get(coordinates[1]).isFullyLearned();
+        return all_known_words.get(coordinates[0]).words.get(coordinates[1]).isFullyLearned();
     }
 
     public boolean quizAndGrade() {
-        return WordLearning.all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizAndGrade();
+        return all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizAndGrade();
     }
 
     public boolean quizNoGrade() {
-        return WordLearning.all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizNoGrade();
+        return all_known_words.get(coordinates[0]).words.get(coordinates[1]).quizNoGrade();
     }
 
     public boolean timeToReview() {
-        return WordLearning.all_known_words.get(coordinates[0]).words.get(coordinates[1]).timeToReview();
+        return all_known_words.get(coordinates[0]).words.get(coordinates[1]).timeToReview();
     }
 }

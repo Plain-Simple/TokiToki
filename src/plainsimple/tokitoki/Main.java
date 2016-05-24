@@ -3,12 +3,13 @@ package plainsimple.tokitoki;
 import java.util.Scanner;
 
 public class Main {
-    static Conjugator conj = new Conjugator();
-    static Pronoun_Getter pron = new Pronoun_Getter();
+    static Conjugator conj_targ = new Conjugator(UserSettings.getTarget_language());
+    static Pronoun_Getter pron_targ = new Pronoun_Getter(UserSettings.getTarget_language());
+    static Conjugator conj_base = new Conjugator(UserSettings.getTarget_language());
+    static Pronoun_Getter pron_base = new Pronoun_Getter(UserSettings.getTarget_language());
 
     public static void main(String[] args) {
-        WordLearning.addWordsFromFile("test1");
-        WordLearning.learnNewWords();
+
     }
     public static final Scanner scanner = new Scanner(System.in);
 }
